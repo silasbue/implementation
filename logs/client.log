@@ -1,0 +1,30 @@
+2023/01/03 09:45:43 server 0: ERROR - rpc error: code = Unimplemented desc = method Read not implemented
+2023/01/03 09:45:43 server 1: ERROR - rpc error: code = Unimplemented desc = method Read not implemented
+2023/01/03 09:46:26 get read for word: hello returned definition: 
+2023/01/03 09:46:26 get read for word: hello returned definition: 
+2023/01/03 09:46:51 put succeeded: true
+2023/01/03 09:46:51 put succeeded: true
+2023/01/03 09:46:56 get read for word: hi returned definition: summary
+2023/01/03 09:46:56 get read for word: hi returned definition: summary
+2023/01/03 09:47:28 put succeeded: true
+2023/01/03 09:47:28 put succeeded: true
+2023/01/03 09:47:33 get read for word: hi returned definition: "hello
+2023/01/03 09:47:33 get read for word: hi returned definition: "hello
+2023/01/03 09:52:32 put succeeded: true
+2023/01/03 09:52:32 put succeeded: true
+2023/01/03 09:52:38 get read for word: hello returned definition: hi_this_is
+2023/01/03 09:52:38 get read for word: hello returned definition: hi_this_is
+2023/01/03 10:17:53 put succeeded: true
+2023/01/03 10:17:58 get read for word: hello returned definition: hi
+2023/01/03 10:17:58 get read for word: hello returned definition: hi
+2023/01/03 10:18:39 put succeeded: true
+2023/01/03 10:18:41 get read for word: hello returned definition: hi
+2023/01/03 10:18:46 get read for word: sub returned definition: 
+2023/01/03 10:18:49 put succeeded: true
+2023/01/03 10:18:51 get read for word: sub returned definition: def
+2023/01/03 10:18:59 get read for word: def returned definition: 
+2023/01/03 10:19:06 put succeeded: true
+2023/01/03 10:19:12 get read for word: sub returned definition: hi
+2023/01/03 10:19:35 put succeeded: true
+2023/01/03 10:19:41 server 0: ERROR - rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing dial tcp :3000: connect: connection refused"
+2023/01/03 10:19:41 get read for word: hi returned definition: hello
