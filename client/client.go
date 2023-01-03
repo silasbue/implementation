@@ -43,15 +43,18 @@ func main() {
 
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
-		command := strings.Split(scanner.Text(), " ")
-		command[0] = strings.ToLower(command[0])
-		command[1] = strings.ToLower(command[1])
+		input := strings.Split(scanner.Text(), "(")
+		command := strings.ToLower(input[0])
 
-		if command[0] == "add" {
-			command[2] = strings.ToLower(command[2])
+		if command == "add" {
+			wordDef := strings.Split(input[1], ",")
+			word := strings.Trim(wordDef[0], " ")
+			def := strings.Trim(wordDef[1], ")")
+			def = strings.Trim(def, " ")
+			fmt.Println(input, command, wordDef, word, def)
 
 			for _, server := range servers {
-				res, err := server.Add(ctx, &dictionary.AddRequest{Word: command[1], Definition: command[2]})
+				res, err := server.Add(ctx, &dictionary.AddRequest{Word: word, Definition: def})
 				if err != nil {
 					continue
 				}
@@ -60,10 +63,12 @@ func main() {
 			}
 		}
 
-		if command[0] == "read" {
+		if command == "read" {
+			word := strings.Trim(input[1], ")")
+			word = strings.Trim(word, " ")
 
 			for _, server := range servers {
-				res, err := server.Read(ctx, &dictionary.ReadRequest{Word: command[1]})
+				res, err := server.Read(ctx, &dictionary.ReadRequest{Word: word})
 				if err != nil {
 					continue
 				}
