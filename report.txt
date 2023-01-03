@@ -1,0 +1,55 @@
+I hereby declare that this submission was created in its entirety by me and
+only me. I have recycled code from my submission for "hand-in 5: replication".
+
+*Architecture decription*
+
+  My system consists of *only* 2 nodes. A primary Replication Manager that runs
+  on port 3000 and a backup RM that runs on port 3001. The primary RM is
+  automatically assigned the role of leader and will always backup all Add
+  requests to the backup RM. You can then access the primary RM with a client.
+  Since there are only 2 nodes in this system, there is no need to call an
+  election if the leader fails. therefore, if the leader fails, the backup node
+  will just recieve the call from the client instead.
+
+
+a) how does your system satisfy points 1-7
+  my system provides the operations 'add' and 'read' which the client can call
+  by writing: `add <word> <definition>` or `read <word>`.
+  The operations are implemented on the server using gRPC.
+
+  When the server recieves an Add request, it updates a "values" property
+  with `map` as the underlying data structure with the word as the key and
+  definition as the value. Then it returns a Success confirmation.
+
+  When the server recieves a Read request, it simply reads the defintion from
+  the "values" map using the given key/word. Then, it returns the definition.
+
+b) argue why your system satisfies the requirement in point 8
+  I use map as the datastructure for storing my words and definition. And map
+  itself overholds the repeatable read property. I make sure that all request
+  from the client is sent to the primary replication manager until it fails. And
+  since the primary RM always updates it's own, and the backup RM(if not faulty)
+  map on Add requests, and only reads its own map on Read requests we know that
+  point 8 is satisfied. If the primary RM fails, the client will send the
+  request to the backup RM instead and continue as if nothing had happended.
+  I assume that after a RM fails, it will not recover.
+
+
+c) argue why the system is tolerant to one crash-failure
+  The system only has 2 replication managers, a primary RM and a backup RM. If
+  the backup RM crashes/fails the primary RM will not succeed when requesting
+  to update the data in the backup RM, but it will still update its own data and
+  the client will not see a difference. If the primary RM crashes/fails, the
+  client will not succeed in its request to the primary RM for Add or Read, and
+  it will simply send the request to the backup RM instead. And the backup RM
+  will always be up to date with the primary RM until an execution of a request
+  has happened *after* one of them has crashed.
+
+
+
+d) argue whether your system satisfies linearisability and/or causal consistency.
+   My system does not satisfie linearisability since it does not guarantee that
+   the interleaving is consistent with the real-time ordering of the operations
+   between all clients. But since the system uses request-reply communication,
+   we know that casual consistency is satisfied since The interleaving is
+   consistent with the order in which individual clients issued them.
