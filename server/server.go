@@ -22,7 +22,7 @@ func main() {
 	log.SetFlags(2 | 3)
 
 	if len(os.Args) != 2 {
-		log.Printf("Please input a number to run the server on. Fx. inputting 1 would run the server on port 3001")
+		log.Printf("Please input 0 or 1 to run the server on. Fx. inputting 0 will run the primary RM on port 3000 and inputting 1 will run the backup RM on port 3001")
 		return
 	}
 
@@ -64,13 +64,16 @@ func main() {
 
 func (s *Server) Add(ctx context.Context, req *dictionary.AddRequest) (*dictionary.AddReply, error) {
 	s.values[req.Word] = req.Definition
-	log.Printf("server %v: recieved a Add request for word %v. definition: %v", s.id, req.GetWord(), req.GetDefinition())
+	log.Printf("RM %v: recieved an Add request for word: %v. definition: %v", s.id, req.GetWord(), req.GetDefinition())
 
 	if s.isLeader {
+		log.Printf("RM %v: sending Add request to backup RM", s.id)
 		_, err := s.otherServer.Add(ctx, &dictionary.AddRequest{Word: req.GetWord(), Definition: req.GetDefinition()})
 
 		if err != nil {
-			log.Printf("Could not copy data to backup server ERROR - %v", err)
+			log.Printf("Could not copy data to backup RM: ERROR - %v", err)
+		} else {
+			log.Printf("Backup RM updated!")
 		}
 	}
 
@@ -79,6 +82,7 @@ func (s *Server) Add(ctx context.Context, req *dictionary.AddRequest) (*dictiona
 
 func (s *Server) Read(ctx context.Context, req *dictionary.ReadRequest) (*dictionary.ReadReply, error) {
 	definition := s.values[req.Word]
+	log.Printf("RM %v: value was read. Word recieved: %v, Definition returned: %v", s.id, req.GetWord(), definition)
 	return &dictionary.ReadReply{Definition: definition}, nil
 }
 

@@ -50,10 +50,9 @@ func main() {
 		if command[0] == "add" {
 			command[2] = strings.ToLower(command[2])
 
-			for id, server := range servers {
+			for _, server := range servers {
 				res, err := server.Add(ctx, &dictionary.AddRequest{Word: command[1], Definition: command[2]})
 				if err != nil {
-					log.Printf("server %v: ERROR - %v", id, err)
 					continue
 				}
 				log.Printf("Add succeeded: %v", res.GetSuccess())

@@ -1,0 +1,15 @@
+2023/01/03 11:25:52 server listening at 127.0.0.1:3000
+2023/01/03 11:25:55 server listening at 127.0.0.1:3001
+2023/01/03 11:26:02 RM 0: recieved an Add request for word hello. definition: hi
+2023/01/03 11:26:02 RM 0: sending Add request to backup RM
+2023/01/03 11:26:02 RM 1: recieved an Add request for word hello. definition: hi
+2023/01/03 11:26:02 Backup RM updated!
+2023/01/03 11:26:06 RM 0: value was read. Word recieved: hello, Definition returned: hi
+2023/01/03 11:26:14 RM 0: recieved an Add request for word first. definition: teset
+2023/01/03 11:26:14 RM 0: sending Add request to backup RM
+2023/01/03 11:26:14 RM 1: recieved an Add request for word first. definition: teset
+2023/01/03 11:26:14 Backup RM updated!
+2023/01/03 11:26:17 RM 0: value was read. Word recieved: first, Definition returned: teset
+2023/01/03 11:26:24 RM 1: value was read. Word recieved: first, Definition returned: teset
+2023/01/03 11:26:44 RM 1: recieved an Add request for word first. definition: new
+2023/01/03 11:26:46 RM 1: value was read. Word recieved: first, Definition returned: new

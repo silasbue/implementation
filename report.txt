@@ -1,6 +1,10 @@
 I hereby declare that this submission was created in its entirety by me and
 only me. I have recycled code from my submission for "hand-in 5: replication".
 
+
+For instructions for how to run the system, see the README.
+
+
 *Architecture decription*
 
   My system consists of *only* 2 nodes. A primary Replication Manager that runs
@@ -9,7 +13,8 @@ only me. I have recycled code from my submission for "hand-in 5: replication".
   requests to the backup RM. You can then access the primary RM with a client.
   Since there are only 2 nodes in this system, there is no need to call an
   election if the leader fails. therefore, if the leader fails, the backup node
-  will just recieve the call from the client instead.
+  will just recieve the call from the client instead. I assume that no RM will
+  recover after a crash.
 
 
 a) how does your system satisfy points 1-7
